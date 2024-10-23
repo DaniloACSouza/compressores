@@ -34,7 +34,7 @@
  *                  SEMPRE MODIFICAR PARA NÃO DAR CONFLITO ENTRE AS PLACAS INSTALADAS
  ==============================================================================================*/
 
-#define ID_MQTT "USINA_CR_STA_RITA"    //id mqtt (para identificação de sessão) SEMPRE MODIFICAR ESSE TOPICO
+#define ID_MQTT "USINA_CR_NATAL"    //id mqtt (para identificação de sessão) SEMPRE MODIFICAR ESSE TOPICO
 
 /*============================================================================================
  *                             MAPEAMENTO DOS PINOS DO NODEMCU
