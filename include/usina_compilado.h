@@ -24,6 +24,7 @@
 #define TOPICO_PUBLISH9 "COMPRESSOR_1_ON/OFF_STA_RITA"
 #define TOPICO_PUBLISH10 "STATUS_USINA_STA_RITA"
 #define TOPICO_PUBLISH11 "COMPRESSOR_2_ON/OFF_STA_RITA"
+#define TOPICO_12 "JSON_GERAL"
 
 
 
@@ -100,11 +101,13 @@ char timestamp[] = "";
 char timestamp1[] = "";
 char timestamp2[] = "";
 char timestamp3[] = "";
+char timestamp4[] = "";
 
 char payload[23] = "000.00";
 char payload1[23] = "000.00";
 char payload2[23] = "000.00";
 char payload3[23] = "000.00";
+char payload4[23] = "";
 
 
 int central = '0';        //variável que armazena o estado atual da saída
