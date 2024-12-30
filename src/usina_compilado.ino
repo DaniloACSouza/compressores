@@ -10,6 +10,7 @@ void setup() {
     initSerial();
     initWiFi();
     initMQTT();
+
     pinMode(D0, INPUT);  //FALTA DE FASE
     pinMode(D1, INPUT);  //CHAVE LIGA AUTOMATICO
     pinMode(D2, INPUT);  //BOTAO DE EMERGENCIA   
@@ -56,8 +57,9 @@ void initWiFi() {
  ======================================================================================================*/
 
 void initMQTT() {
-  MQTT.setServer(BROKER_MQTT, BROKER_PORT);  //informa qual broker e porta deve ser conectado
-  MQTT.setCallback(mqtt_callback);           //atribui função de callback 
+    espClient.setInsecure(); // Aceita qualquer certificado
+    MQTT.setServer(BROKER_MQTT, BROKER_PORT);
+    MQTT.setCallback(mqtt_callback);         //atribui função de callback 
 }
 
 /*=======================================================================================================
@@ -98,7 +100,7 @@ void reconnectMQTT() {
   while (!MQTT.connected()) {
     Serial.print("* Tentando se conectar ao Broker MQTT: ");
     Serial.println(BROKER_MQTT);
-    if (MQTT.connect(ID_MQTT)) {
+    if (MQTT.connect(ID_MQTT, USERNAME, PASSWORD_MQTT)) {
       Serial.println("Conectado com sucesso ao broker MQTT!");
       MQTT.subscribe(TOPICO_SUBSCRIBE);
     } else {
