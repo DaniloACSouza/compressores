@@ -1,9 +1,7 @@
 #include "defines.h"
-#include "ioSetups.h"
-#include "mqttConnection.h"
-#include "wifiConnection.h"
-#include "functions.h"
 
+
+const char* hospital = "ceara";
 int central = '0';        
 int tempo = 0;
 int emergencia = 0;
@@ -14,6 +12,29 @@ int statecompressor2 = '0';
 int usina = '0';
 int compressorINPUT = 0;
 int compressorINPUT2 = 0;
+
+float rede;
+float dewpoint;
+float vacuum;
+float pressure;
+
+const char* SSID = "4G-MIFI-6AC"; 
+const char* PASSWORD = "1234567890"; 
+
+const char* BROKER_MQTT = "9281d6a0da6d4dc6a8bc4ce9498e7c52.s1.eu.hivemq.cloud"; 
+int BROKER_PORT = 8883; 
+const char* USERNAME = "hivemq.webclient.1730054965974"; 
+const char* PASSWORD_MQTT = "l9s1@,3KXprVuN.BJ6&n"; 
+
+// Intervalo de tempo em milissegundos (8 horas)
+const unsigned long interval = 8 * 60 * 60 * 1000; 
+
+// Variáveis para controle de tempo
+unsigned long previousMillis = 0; // Armazena o último tempo de ativação
+bool state = LOW; // Estado atual das saídas
+
+WiFiClientSecure espClient;;          
+PubSubClient MQTT(espClient);  
 
 void setup() {
   Serial.begin(115200);
@@ -45,22 +66,6 @@ void loop() {
   compareAndControl(LED_COMPRESSOR1, compressorINPUT);
   compareAndControl(LED_COMPRESSOR2, compressorINPUT2);
   
-  // if (compressorINPUT == 1) {
-  //         MQTT.publish(TOPICO_PUBLISH9, "1");
-  //   digitalWrite(D7, HIGH);
-  //  }
-  // if (compressorINPUT == 0){
-  //         MQTT.publish(TOPICO_PUBLISH9, "0");
-  //   digitalWrite(D7, LOW);
-  //   }
-  // if (compressorINPUT2 == 1) {
-  //         MQTT.publish(TOPICO_PUBLISH11, "1");
-  //   digitalWrite(D11, HIGH);
-  //  }
-  // if (compressorINPUT2 == 0){
-  //         MQTT.publish(TOPICO_PUBLISH11, "0");
-  //   digitalWrite(D11, LOW);
-  //   }
 
   if (central == '1') {
     digitalWrite(OGP_OUT, HIGH);
