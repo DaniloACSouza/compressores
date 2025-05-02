@@ -2,16 +2,19 @@
 
 
 const char* hospital = "ceara";
-int central = '0';        
+int central = 0;        
 int tempo = 0;
 int emergencia = 0;
 int automatico = 0;
 int RST = 0;
-int statecompressor1 = '0';
-int statecompressor2 = '0';
-int usina = '0';
+int statecompressor1 = 0;
+int statecompressor2 = 0;
+int usina = 0;
 int compressorINPUT = 0;
 int compressorINPUT2 = 0;
+
+const float minimumPressure = 6.00;
+const float maximumPressure = 8.00;
 
 float rede;
 float dewpoint;
@@ -81,12 +84,12 @@ void loop() {
     }
 //END TIMER
  
-  if ((automatico == 1) && (pressure < 5.00)) {
+  if ((automatico == 1) && (pressure < minimumPressure)) {
     digitalWrite(RELAY_COMPRESSOR1, state ? HIGH : LOW);
     digitalWrite(RELAY_COMPRESSOR2, state ? LOW : HIGH);
     }
 
-  if ((automatico == 1) && (pressure > 6.00)) {
+  if ((automatico == 1) && (pressure > maximumPressure)) {
     digitalWrite(RELAY_COMPRESSOR1, LOW);
     digitalWrite(RELAY_COMPRESSOR2, LOW);
   }
