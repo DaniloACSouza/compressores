@@ -50,6 +50,12 @@
 extern WiFiClientSecure espClient;;          
 extern PubSubClient MQTT;  
 
+extern String compressor1estado;
+extern String compressor2estado;
+extern String supervisorio;
+extern String emergency_button;
+extern String man_auto;
+
 extern const char* SSID; 
 extern const char* PASSWORD; 
 
@@ -68,6 +74,9 @@ extern int statecompressor2;
 extern int usina;
 extern int compressorINPUT;
 extern int compressorINPUT2;
+
+extern const float minimumPressure;
+extern const float maximumPressure;
 
 extern const char* hospital;
 extern float rede;

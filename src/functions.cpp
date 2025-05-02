@@ -1,15 +1,13 @@
 #include "defines.h"
 
-void compareState(int leitura_saida) {
+void compareState(int leitura_saida, String nome) {
     switch (leitura_saida) {
         case 0:
-            sendJson();
-            Serial.println("- Estado do " + String(leitura_saida) + " enviado ao broker!");
+            Serial.println("- Estado do " + nome + " enviado ao broker!");
             Serial.println(leitura_saida);
             break;
         case 1:
-            sendJson();
-            Serial.println("- Estado do " + String(leitura_saida) + " enviado ao broker!");
+            Serial.println("- Estado do " + nome + " enviado ao broker!");
             Serial.println(leitura_saida);
             break;
         default:
@@ -17,22 +15,21 @@ void compareState(int leitura_saida) {
     }
 }
 
-void compareAndControlLed(uint8_t pino, int leitura_entrada) {
+String compareAndControlLed(uint8_t pino, int leitura_entrada) {
     switch (leitura_entrada) {
         case 0:
             digitalWrite(pino, LOW);
-            sendJson();
-            Serial.println("- Estado do " + String(leitura_entrada) + " enviado ao broker!");
+            
+            Serial.println("- Estado da saida " + String(pino) + " enviado ao broker!");
             Serial.println(leitura_entrada);
-            break;
+            return "Desligado";
         case 1:
             digitalWrite(pino, HIGH);
-            sendJson();
-            Serial.println("- Estado do " + String(leitura_entrada) + " enviado ao broker!");
+            Serial.println("- Estado da saida " + String(pino) + " enviado ao broker!");
             Serial.println(leitura_entrada);
-            break;
+            return "Ligado";
         default:
-            break;
+            return "Default";
     }
 }
 

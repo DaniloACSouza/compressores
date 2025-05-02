@@ -49,8 +49,7 @@ void VerifyWIFIAndMQTT(void) {
   }
   
 void SendOutputStateMQTT(void) {
-    compareState(statecompressor1);
-    compareState(statecompressor2);
-    
+    compareState(statecompressor1, "compressor 1");
+    compareState(statecompressor2, "compressor 2");
     }
   

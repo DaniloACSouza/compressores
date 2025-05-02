@@ -1,7 +1,7 @@
 #include "defines.h"
 
 
-const char* hospital = "ceara";
+const char* hospital = "Ceara";
 int central = 0;        
 int tempo = 0;
 int emergencia = 0;
@@ -12,6 +12,13 @@ int statecompressor2 = 0;
 int usina = 0;
 int compressorINPUT = 0;
 int compressorINPUT2 = 0;
+
+String compressor1estado = "Desligado";
+String compressor2estado = "Desligado";
+String supervisorio = "OK";
+String emergency_button = "OK";
+String man_auto = "Automatico";
+
 
 const float minimumPressure = 6.00;
 const float maximumPressure = 8.00;
@@ -59,8 +66,8 @@ void loop() {
   compressorINPUT = digitalRead(COMPRESSOR_INPUT1);
   compressorINPUT2 = digitalRead(COMPRESSOR_INPUT2);
 
-  compareAndControlLed(LED_COMPRESSOR1, compressorINPUT);
-  compareAndControlLed(LED_COMPRESSOR2, compressorINPUT2);
+  compressor1estado = compareAndControlLed(LED_COMPRESSOR1, compressorINPUT);
+  compressor2estado = compareAndControlLed(LED_COMPRESSOR2, compressorINPUT2);
   
 
   if (central == 1) {
@@ -98,15 +105,23 @@ void loop() {
   if (automatico == 0) {
     digitalWrite(RELAY_COMPRESSOR1, LOW);
     digitalWrite(RELAY_COMPRESSOR2, LOW);
+    man_auto = "Manual";
+  } else {
+    man_auto = "Automatico";
   }
   if (emergencia == 0) {
     digitalWrite(ALARM, HIGH);
     digitalWrite(RELAY_COMPRESSOR1, LOW);
     digitalWrite(RELAY_COMPRESSOR2, LOW);
-
+    emergency_button = "Falha";
+  } else {
+    emergency_button = "OK";
   }
   if (RST == 0) {
     digitalWrite(ALARM, HIGH);
+    supervisorio = "Falha";
+  } else {
+    supervisorio = "OK";
   }
   if (central == 0) {
     // digitalWrite(OUT_COMPRESSOR1, LOW);
@@ -124,7 +139,7 @@ void loop() {
   sendJson();
   VerifyWIFIAndMQTT();
   SendOutputStateMQTT();
-  delay(5000);
+  delay(2000);
   MQTT.loop();
   
 }
