@@ -15,10 +15,10 @@
 #include "functions.h"
 #include "attJson.h"
 
-#define TOPICO_SUBSCRIBE "USINA_ON/OFF_STA_RITA"  
-#define TOPICO_PUBLISH  "PRESSAO_USINA_STA_RITA"  
+#define TOPICO_SUBSCRIBE "Ceara_Sub"  
+#define TOPICO_PUBLISH  "Ceara_Pub"  
 
-#define ID_MQTT "USINA_CR_NATAL"    //id mqtt (para identificação de sessão) SEMPRE MODIFICAR ESSE TOPICO
+#define ID_MQTT "ceara"    //id mqtt (para identificação de sessão) SEMPRE MODIFICAR ESSE TOPICO
 
 #define SUPERVISORIO 26                                        
 #define AUTOMATIC 27                                        

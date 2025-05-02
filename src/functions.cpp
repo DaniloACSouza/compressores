@@ -2,12 +2,12 @@
 
 void compareState(int leitura_saida) {
     switch (leitura_saida) {
-        case '0':
+        case 0:
             sendJson();
             Serial.println("- Estado do " + String(leitura_saida) + " enviado ao broker!");
             Serial.println(leitura_saida);
             break;
-        case '1':
+        case 1:
             sendJson();
             Serial.println("- Estado do " + String(leitura_saida) + " enviado ao broker!");
             Serial.println(leitura_saida);
@@ -17,19 +17,19 @@ void compareState(int leitura_saida) {
     }
 }
 
-void compareAndControl(uint8_t pino, int leitura_saida) {
-    switch (leitura_saida) {
-        case '0':
-            sendJson();
+void compareAndControlLed(uint8_t pino, int leitura_entrada) {
+    switch (leitura_entrada) {
+        case 0:
             digitalWrite(pino, LOW);
-            Serial.println("- Estado do " + String(leitura_saida) + " enviado ao broker!");
-            Serial.println(leitura_saida);
-            break;
-        case '1':
             sendJson();
+            Serial.println("- Estado do " + String(leitura_entrada) + " enviado ao broker!");
+            Serial.println(leitura_entrada);
+            break;
+        case 1:
             digitalWrite(pino, HIGH);
-            Serial.println("- Estado do " + String(leitura_saida) + " enviado ao broker!");
-            Serial.println(leitura_saida);
+            sendJson();
+            Serial.println("- Estado do " + String(leitura_entrada) + " enviado ao broker!");
+            Serial.println(leitura_entrada);
             break;
         default:
             break;

@@ -16,12 +16,12 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length) {
     msg += c;
   }
 
-  if (msg.equals("L")) {
-    central = '1';
+  if (msg.equals("On")) {
+    central = 1;
   }
 
-  if (msg.equals("D")) {
-    central = '0';
+  if (msg.equals("Off")) {
+    central = 0;
   }
   Serial.print(central);
 }
