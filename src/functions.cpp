@@ -3,12 +3,12 @@
 void compareState(int leitura_saida, String nome) {
     switch (leitura_saida) {
         case 0:
-            Serial.println("- Estado do " + nome + " enviado ao broker!");
-            Serial.println(leitura_saida);
+            // Serial.println("- Estado do " + nome);
+            // Serial.println(leitura_saida);
             break;
         case 1:
-            Serial.println("- Estado do " + nome + " enviado ao broker!");
-            Serial.println(leitura_saida);
+            // Serial.println("- Estado do " + nome);
+            // Serial.println(leitura_saida);
             break;
         default:
             break;
@@ -20,13 +20,13 @@ String compareAndControlLed(uint8_t pino, int leitura_entrada) {
         case 0:
             digitalWrite(pino, LOW);
             
-            Serial.println("- Estado da saida " + String(pino) + " enviado ao broker!");
-            Serial.println(leitura_entrada);
+            // Serial.println("- Estado da saida " + String(pino));
+            // Serial.println(leitura_entrada);
             return "Desligado";
         case 1:
             digitalWrite(pino, HIGH);
-            Serial.println("- Estado da saida " + String(pino) + " enviado ao broker!");
-            Serial.println(leitura_entrada);
+            // Serial.println("- Estado da saida " + String(pino));
+            // Serial.println(leitura_entrada);
             return "Ligado";
         default:
             return "Default";

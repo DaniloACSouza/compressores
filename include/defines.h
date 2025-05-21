@@ -85,6 +85,8 @@ extern float vacuum;
 extern float pressure;
 
 extern const unsigned long interval;
+extern const unsigned long time_send;
 extern bool state;
+extern bool enviado;
 
 

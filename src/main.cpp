@@ -38,10 +38,12 @@ const char* PASSWORD_MQTT = "Da32525291";
 
 // Intervalo de tempo em milissegundos (8 horas)
 const unsigned long interval = 8 * 60 * 60 * 1000; 
-
+const unsigned long time_send = 5000;
 // Variáveis para controle de tempo
 unsigned long previousMillis = 0; // Armazena o último tempo de ativação
+unsigned long anterior_time = 0;
 bool state = LOW; // Estado atual das saídas
+bool enviado = false;
 
 WiFiClientSecure espClient;;          
 PubSubClient MQTT(espClient);  
@@ -81,16 +83,13 @@ void loop() {
     digitalWrite(ALARM, LOW);
   }
   
-//START TIMER
-  unsigned long currentMillis = millis(); // Obtém o tempo atual
-// Verifica se o intervalo de 8 horas foi atingido
+
+  unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= interval) {
-    previousMillis = currentMillis; // Atualiza o tempo anterior
-    // Alterna os estados das saídas
+    previousMillis = currentMillis;
     state = !state;
     }
-//END TIMER
- 
+
   if ((automatico == 1) && (pressure < minimumPressure)) {
     digitalWrite(RELAY_COMPRESSOR1, state ? HIGH : LOW);
     digitalWrite(RELAY_COMPRESSOR2, state ? LOW : HIGH);
@@ -119,7 +118,7 @@ void loop() {
   }
   if (RST == 0) {
     digitalWrite(ALARM, HIGH);
-    supervisorio = "Falha";
+    supervisorio = "OK";
   } else {
     supervisorio = "OK";
   }
@@ -136,10 +135,21 @@ void loop() {
   pressure = ((readAnalogAverage(PRESSURE) -590) * 20 / 4095);
   dewpoint = ((readAnalogAverage(DEW_POINT) - 590) * 20 / 4095);
   vacuum = ((readAnalogAverage(VACUUM) - 590) * 20 / 4095);
+
+
+unsigned long atual_time = millis(); 
+  if (atual_time - anterior_time >= time_send) {
+    anterior_time = atual_time;
+    enviado = false;
+    }
+
+if(!enviado) {
   sendJson();
+  enviado = true;
+}
   VerifyWIFIAndMQTT();
   SendOutputStateMQTT();
-  delay(2000);
+  delay(1000);
   MQTT.loop();
   
 }
